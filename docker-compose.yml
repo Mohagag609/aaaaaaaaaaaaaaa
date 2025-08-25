@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  # قاعدة البيانات PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: real_estate_db
+    environment:
+      POSTGRES_DB: real_estate_management
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    networks:
+      - real_estate_network
+    restart: unless-stopped
+
+  # الخادم (Backend)
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: real_estate_server
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres123
+      DB_NAME: real_estate_management
+      DB_PORT: 5432
+      PORT: 5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    networks:
+      - real_estate_network
+    restart: unless-stopped
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  # الواجهة الأمامية (Frontend)
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: real_estate_client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - real_estate_network
+    restart: unless-stopped
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  # Redis للتخزين المؤقت
+  redis:
+    image: redis:7-alpine
+    container_name: real_estate_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - real_estate_network
+    restart: unless-stopped
+
+  # pgAdmin لإدارة قاعدة البيانات
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: real_estate_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@realestate.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - real_estate_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  real_estate_network:
+    driver: bridge
