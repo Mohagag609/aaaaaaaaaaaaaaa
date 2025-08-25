@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* إعدادات عامة */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* تخصيص شريط التمرير */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* أنماط مخصصة */
+@layer components {
+  /* أزرار */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary-100 text-secondary-700 hover:bg-secondary-200 focus:ring-secondary-500;
+  }
+
+  .btn-success {
+    @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-success-500 shadow-sm;
+  }
+
+  .btn-warning {
+    @apply btn bg-warning-600 text-white hover:bg-warning-700 focus:ring-warning-500 shadow-sm;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-500 shadow-sm;
+  }
+
+  .btn-outline {
+    @apply btn border-secondary-300 text-secondary-700 hover:bg-secondary-50 focus:ring-secondary-500;
+  }
+
+  /* حقول الإدخال */
+  .input {
+    @apply block w-full px-3 py-2 border border-secondary-300 rounded-lg shadow-sm placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200;
+  }
+
+  .input-error {
+    @apply input border-danger-300 focus:ring-danger-500 focus:border-danger-500;
+  }
+
+  /* البطاقات */
+  .card {
+    @apply bg-white rounded-xl shadow-soft border border-secondary-100 overflow-hidden;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-secondary-100 bg-secondary-50;
+  }
+
+  .card-body {
+    @apply p-6;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 border-t border-secondary-100 bg-secondary-50;
+  }
+
+  /* الجداول */
+  .table {
+    @apply min-w-full divide-y divide-secondary-200;
+  }
+
+  .table-header {
+    @apply bg-secondary-50;
+  }
+
+  .table-header th {
+    @apply px-6 py-3 text-right text-xs font-medium text-secondary-500 uppercase tracking-wider;
+  }
+
+  .table-body {
+    @apply bg-white divide-y divide-secondary-200;
+  }
+
+  .table-row {
+    @apply hover:bg-secondary-50 transition-colors duration-150;
+  }
+
+  .table-cell {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-secondary-900;
+  }
+
+  /* التنبيهات */
+  .alert {
+    @apply p-4 rounded-lg border;
+  }
+
+  .alert-success {
+    @apply alert bg-success-50 border-success-200 text-success-800;
+  }
+
+  .alert-warning {
+    @apply alert bg-warning-50 border-warning-200 text-warning-800;
+  }
+
+  .alert-danger {
+    @apply alert bg-danger-50 border-danger-200 text-danger-800;
+  }
+
+  .alert-info {
+    @apply alert bg-primary-50 border-primary-200 text-primary-800;
+  }
+
+  /* الشارات */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-success-100 text-success-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning-100 text-warning-800;
+  }
+
+  .badge-danger {
+    @apply badge bg-danger-100 text-danger-800;
+  }
+
+  .badge-info {
+    @apply badge bg-primary-100 text-primary-800;
+  }
+
+  .badge-secondary {
+    @apply badge bg-secondary-100 text-secondary-800;
+  }
+
+  /* التنقل */
+  .nav-link {
+    @apply flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200;
+  }
+
+  .nav-link-active {
+    @apply nav-link bg-primary-100 text-primary-700;
+  }
+
+  .nav-link-inactive {
+    @apply nav-link text-secondary-600 hover:text-secondary-900 hover:bg-secondary-100;
+  }
+
+  /* الأيقونات */
+  .icon {
+    @apply w-5 h-5;
+  }
+
+  .icon-sm {
+    @apply w-4 h-4;
+  }
+
+  .icon-lg {
+    @apply w-6 h-6;
+  }
+
+  /* الرسوم البيانية */
+  .chart-container {
+    @apply bg-white p-6 rounded-xl shadow-soft border border-secondary-100;
+  }
+
+  /* النماذج */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-secondary-700;
+  }
+
+  .form-error {
+    @apply text-sm text-danger-600;
+  }
+
+  /* الصفحات */
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-secondary-900;
+  }
+
+  .page-subtitle {
+    @apply mt-2 text-lg text-secondary-600;
+  }
+
+  /* الإحصائيات */
+  .stat-card {
+    @apply bg-white p-6 rounded-xl shadow-soft border border-secondary-100;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold text-secondary-900;
+  }
+
+  .stat-label {
+    @apply text-sm font-medium text-secondary-600;
+  }
+
+  .stat-change {
+    @apply text-sm font-medium;
+  }
+
+  .stat-change-positive {
+    @apply stat-change text-success-600;
+  }
+
+  .stat-change-negative {
+    @apply stat-change text-danger-600;
+  }
+
+  /* التحميل */
+  .loading {
+    @apply flex items-center justify-center p-8;
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600;
+  }
+
+  /* الفراغات */
+  .empty-state {
+    @apply text-center py-12;
+  }
+
+  .empty-state-icon {
+    @apply mx-auto h-12 w-12 text-secondary-400;
+  }
+
+  .empty-state-title {
+    @apply mt-2 text-sm font-medium text-secondary-900;
+  }
+
+  .empty-state-description {
+    @apply mt-1 text-sm text-secondary-500;
+  }
+
+  /* الاستجابة */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+
+  .responsive-table {
+    @apply overflow-x-auto;
+  }
+
+  /* الطباعة */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-break {
+      page-break-before: always;
+    }
+  }
+}
+
+/* تأثيرات الحركة */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* تحسينات للأجهزة المحمولة */
+@media (max-width: 640px) {
+  .card-body {
+    @apply p-4;
+  }
+  
+  .table-cell {
+    @apply px-3 py-3;
+  }
+  
+  .btn {
+    @apply px-3 py-2 text-sm;
+  }
+}
+
+/* دعم اللغة العربية */
+[dir="rtl"] .table-header th {
+  text-align: right;
+}
+
+[dir="rtl"] .table-cell {
+  text-align: right;
+}
+
+/* تحسين الأداء */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
